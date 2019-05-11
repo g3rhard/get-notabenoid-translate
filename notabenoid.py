@@ -56,7 +56,7 @@ pages = page.xpath(xpath_pages)
 
 for p in pages:
     # print(LOGINURL + p)
-    xpath_text = '/html/body/div[3]/div[2]/div[1]'
+    xpath_text = '/html/body/div[3]/div[2]/div[1]/*'
     xpath_title = '/html/body/div[3]/div[2]/div[1]/h1/text()'
     chapter_page = session.get(LOGINURL + p)
     chapter_text = lxml.html.fromstring(chapter_page.text)
@@ -67,3 +67,4 @@ for p in pages:
     text_block = chapter_text.xpath(xpath_text)
     for paragraph in text_block:
         print(paragraph.text_content())
+        print("\r\n")

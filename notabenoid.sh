@@ -19,6 +19,18 @@ EOF
 
 download_translate(){
 	python3 notabenoid.py $USERNAME $PASSWORD $TRANSLATEID > $TRANSLATEID.txt
+	sed -i '' -e 's/^## Готовый перевод/##/g' $TRANSLATEID.txt
+	sed -i '' -e '/^Готовый перевод /d' $TRANSLATEID.txt
+	sed -i '' -e '/^Внимание! Этот перевод, возможно, ещё не готов./d' $TRANSLATEID.txt
+	sed -i '' -e '/^Его статус: перевод редактируется/d' $TRANSLATEID.txt
+	sed -i '' -e '/^Переведено на Нотабеноиде/d' $TRANSLATEID.txt
+	sed -i '' -e '/^http:\/\/notabenoid.org\/book/d' $TRANSLATEID.txt
+	sed -i '' -e '/^Переводчики: /d' $TRANSLATEID.txt
+	chapter=$(head -1 $TRANSLATEID.txt | cut -c 3-)
+	sed -i '' -e "s~## ${chapter}~## ~g" $TRANSLATEID.txt
+	sed -i '' -e '/^\t\t/d' $TRANSLATEID.txt
+	sed -i '' -e '/^\s*$/d' $TRANSLATEID.txt
+	sed -i '' -e 's/^- /-- /g' $TRANSLATEID.txt
 }
 
 while :
@@ -87,4 +99,3 @@ else
 		*) ;;
 	esac
 fi
-
